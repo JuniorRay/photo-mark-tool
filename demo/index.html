@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style="background: black">
+<div style="position:absolute;width:100%;height:100%;display: flex;justify-content: space-around;align-items: center;flex-direction: column;">
+    <div style="width: 50%">
+        <!--通过id选择加载水印-->
+        <div style="display: flex;justify-content: space-between">
+            <button onclick="loadMarkByIdA('parentId')">通过id选择加载水印A</button>
+            <button onclick="removeMarkByIdA()">移除id的水印A</button>
+
+            <button onclick="loadMarkByIdB('parentId-two')">通过id选择加载水印B</button>
+            <button onclick="removeMarkByIdB()">移除id的水印B</button>
+
+
+            <!--直接body选择加载水印-->
+            <button onclick="loadMarkByBody()">直接body全局显示</button>
+            <button onclick="removeMarkByBody()">移除body的水印</button>
+
+            <button onclick="timerLoadMarkByBody()">动态时间-body全局显示</button>
+
+
+            <button onclick="removeAllMark()">移除全部的水印</button>
+            <button onclick="removeAllMarkAndTimerForBody()">移除全部的水印和定时器</button>
+
+        </div>
+        <div style="display: flex;">
+            <div id="parentId" style="width: 500px;height: 300px;background: darkmagenta">
+                <div style="position: relative;transform: translate(-50%, -50%);height:100px;width: 100px;left: 50%;top: 50%;">通过id选择加载水印A</div>
+            </div>
+            <div id="parentId-two" style="width: 500px;height: 300px;background: blueviolet">
+                <div style="position: relative;transform: translate(-50%, -50%);height:100px;width: 100px;left: 50%;top: 50%;">通过id选择加载水印B</div>
+            </div>
+        </div>
+    </div>
+    <div style="width: 50%">
+        <!--通过class选择加载水印-->
+        <div style="display: flex;">
+            <button style="" onclick="loadMarkByClass('parent-class')">通过class选择加载水印</button>
+            <button style="" onclick="removeMarkByClass()">移除Class水印</button>
+            <button style="" onclick="loadMarkByClassNotFound('parent-class')">通过class选择加载水印找不到时挂载到body</button>
+            <button style="" onclick="removeMarkByClassNotFound()">移除找不到Class的水印</button>
+
+
+            <button style="" onclick="timerLoadMarkByClass('parent-class')">定时器时间调用class选择加载水印</button>
+            <button style="" onclick="removeAllMarkAndTimer()">定时器时间调用产生的不同对象只能移除全部的水印以及销毁定时器</button>
+        </div>
+        <div style="display: flex;">
+            <div class="parent-class" style="width: 500px;height: 300px;background: darkmagenta">
+                <div style="position: relative;transform: translate(-50%, -50%);height:100px;width: 100px;left: 50%;top: 50%;">通过class选择加载水印</div>
+            </div>
+            <div class="parent-class" style="width: 500px;height: 300px;background: blueviolet">
+                <div style="position: relative;transform: translate(-50%, -50%);height:100px;width: 100px;left: 50%;top: 50%;">通过class选择加载水印</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../PhotoMarkTool.js"></script>
+<script>
+    var photoMarkToolByIdA = new PhotoMarkTool();
+    /**通过id加载水印A**/
+    function loadMarkByIdA(id){
+        photoMarkToolByIdA.load({
+            parentElement: "#"+id,//被渲染元素，支持"#id",".className"
+            content:  "通过id选择加载水印:" +id,
+            width: 100,//水印小块宽度
+            height:50,//水印小块高度
+            color:'#ffffff',//水印字体颜色
+            fontSize:"8px",
+            isParentIdNotExistToLoadAtBody:false,//要渲染的元素parentElement找不到时是否挂载到body上面
+        });
+    }
+    /**id移除水印A**/
+    function removeMarkByIdA(){
+        //移除水印
+        photoMarkToolByIdA.remove();
+    }
+
+
+    var photoMarkToolByIdB = new PhotoMarkTool();
+    /**通过id加载水印B**/
+    function loadMarkByIdB(id){
+        photoMarkToolByIdB.load({
+            parentElement: "#"+id,//被渲染元素，支持"#id",".className"
+            content:  "通过id选择加载水印:" +id,
+            width: 100,//水印小块宽度
+            height:50,//水印小块高度
+            color:'#ffffff',//水印字体颜色
+            fontSize:"8px",
+            isParentIdNotExistToLoadAtBody:false,//要渲染的元素parentElement找不到时是否挂载到body上面
+        });
+    }
+    /**id移除水印B**/
+    function removeMarkByIdB(){
+        //移除水印
+        photoMarkToolByIdB.remove();
+    }
+
+
+
+    /**通过class加载水印**/
+    var photoMarkToolByClass = new PhotoMarkTool();
+    function loadMarkByClass(className){
+        photoMarkToolByClass.load({
+            parentElement: "."+className,//被渲染元素，支持"#id",".className"
+            content:  "通过class选择加载水印" + new Date(),
+            width: 100,//水印小块宽度
+            height:50,//水印小块高度
+            color:'#ffffff',//水印字体颜色
+            fontSize:"8px",
+            isParentIdNotExistToLoadAtBody:false,//要渲染的元素parentElement找不到时是否挂载到body上面
+        });
+    }
+    /**class移除水印**/
+    function removeMarkByClass(){
+        //移除水印
+        photoMarkToolByClass.remove();
+    }
+
+
+
+    /**class或者id找不到的时候挂载到body上面**/
+    /**通过class加载水印**/
+    var photoMarkToolByClassNotFound = new PhotoMarkTool();
+    function loadMarkByClassNotFound(){
+        photoMarkToolByClassNotFound.load({
+            parentElement: "."+"test",//被渲染元素，支持"#id",".className"
+            content:  "通过class选择加载水印" + new Date(),
+            width: 100,//水印小块宽度
+            height:50,//水印小块高度
+            color:'#ffffff',//水印字体颜色
+            fontSize:"8px",
+            isParentIdNotExistToLoadAtBody:true,//要渲染的元素parentElement找不到时是否挂载到body上面
+        });
+    }
+    /**class移除水印**/
+    function removeMarkByClassNotFound(){
+        //移除水印
+        photoMarkToolByClassNotFound.remove();
+    }
+
+
+
+
+
+    var photoMarkToolBody = new PhotoMarkTool();
+    /**body全局加载水印**/
+    function loadMarkByBody(){
+        photoMarkToolBody.load({
+            // parentElement: ".photoMarkToolParentClass",//被渲染元素，支持"#id",".className"
+            content:  "直接body显示"  + new Date(),
+            width: 100,//水印小块宽度
+            height:50,//水印小块高度
+            color:'#ffffff',//水印字体颜色
+            fontSize:"8px",
+            isParentIdNotExistToLoadAtBody:true,//要渲染的元素parentElement找不到时是否挂载到body上面
+        });
+    }
+    /**body移除水印**/
+    function removeMarkByBody(){
+        //移除水印
+        photoMarkToolBody.remove();
+    }
+    var bodyTimer= null;
+    /**定时器动态显示时间body调用**/
+    function timerLoadMarkByBody() {
+        bodyTimer=setInterval(function () {
+            window.photoMarkTool = null;//释放内存防止内存泄漏
+            window.photoMarkTool = new PhotoMarkTool();
+            // window.photoMarkTool.removeAll();//权限级别最高，影响所有实例化元素
+            window.photoMarkTool.removeAll();//权限级别最高，影响所有实例化元素
+            var showMarkText = "水印内容" ;
+            showMarkText = showMarkText+"<br/>"+"时间：";
+            window.photoMarkTool.load({
+                // parentElement: ".photoMarkToolParentClass",//被渲染元素，支持"#id",".className"
+                content:  showMarkText  + new Date(),
+                width: 100,
+                height:50,
+                color:'#ffffff',//水印字体颜色
+                fontSize:"8px",
+                isParentIdNotExistToLoadAtBody:true,//要渲染的元素parentElement找不到时是否挂载到body上面
+            });
+
+        }, 1*1000); //每1秒刷新一次  1000的单位是毫秒
+    }
+    var timer = null;
+    /**定时器动态显示时间class调用**/
+    function timerLoadMarkByClass() {
+        timer=setInterval(function () {
+            window.photoMarkTool = null;//释放内存防止内存泄漏
+            window.photoMarkTool = new PhotoMarkTool();
+            window.photoMarkTool.removeAll();//权限级别最高，影响所有实例化元素
+            var showMarkText = "水印内容" ;
+            showMarkText = showMarkText+"<br/>"+"时间：";
+            window.photoMarkTool.load({
+                parentElement: ".parent-class",//被渲染元素，支持"#id",".className"
+                content:  showMarkText  + new Date(),
+                width: 100,
+                height:50,
+                color:'#ffffff',//水印字体颜色
+                fontSize:"8px",
+                isParentIdNotExistToLoadAtBody:true,//要渲染的元素parentElement找不到时是否挂载到body上面
+            });
+
+        }, 1*1000); //每1秒刷新一次  1000的单位是毫秒
+    }
+
+    /**移除所有水印**/
+    function removeAllMark(){
+        var photoMarkTool = new PhotoMarkTool();
+        //移除水印
+        photoMarkTool.removeAll();
+    }
+
+    /**移除所有水印，以及清除定时器**/
+    function removeAllMarkAndTimer(){
+        removeAllMark();
+        clearInterval(timer);
+    }
+    /**移除所有水印，以及清除定时器**/
+    function removeAllMarkAndTimerForBody(){
+        removeAllMark();
+        clearInterval(bodyTimer);
+    }
+
+
+</script>
+</body>
+</html>
