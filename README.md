@@ -1,6 +1,18 @@
 # photo-mark-tool
 The best watermarking tool-最好用的水印工具 ，支持 1.定时器调用； 2.静态调用；3.移除水印；4.移除全部水印
 
+1.通过id选择加载水印；
+
+2.直接body全局加载水印；
+
+3.动态时间-body全局显示 
+
+4.通过class选择加载水印；
+
+5.通过class选择加载水印找不到时挂载到body；
+
+6.定时器时间调用class选择加载水印
+
  # 基于shadowRoot和css3的pointer-events事件穿透属性和opacity透明属性 实现的水印工具
  * @author JuniorRay
  * @date 2019-12-08
