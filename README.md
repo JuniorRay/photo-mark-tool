@@ -47,7 +47,7 @@ The best watermarking tool-最好用的水印工具 ，支持 1.定时器调用�
 
  2.静态调用：
 
- var photoMarkTool = PhotoMarkTool();//每个实例化对象，只能影响到自己，和其他对象互不影响
+ var photoMarkTool = new PhotoMarkTool();//每个实例化对象，只能影响到自己，和其他对象互不影响
 
  photoMarkTool.load({
  
