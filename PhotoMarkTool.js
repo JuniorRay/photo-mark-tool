@@ -26,7 +26,7 @@
 
  2.静态调用：
 
- var photoMarkTool = PhotoMarkTool();//每个实例化对象，只能影响到自己，和其他对象互不影响
+ var photoMarkTool = new PhotoMarkTool();//每个实例化对象，只能影响到自己，和其他对象互不影响
  photoMarkTool.load({
             parentElement: "."+className,//被渲染元素，支持"#id",".className"
             content:  "通过class选择加载水印" + new Date(),
