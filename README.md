@@ -22,7 +22,7 @@ The best watermarking tool-最好用的水印工具 ，支持 1.定时器调用�
  
  
  1.定时器调用
- 
+ ```javascript
  setInterval(function () {
  
             window.photoMarkTool = null;//释放内存防止内存泄漏
@@ -43,10 +43,10 @@ The best watermarking tool-最好用的水印工具 ，支持 1.定时器调用�
 
  }, 1*1000); //每1秒刷新一次  1000的单位是毫秒
  
-
+```
 
  2.静态调用：
-
+```javascript
  var photoMarkTool = new PhotoMarkTool();//每个实例化对象，只能影响到自己，和其他对象互不影响
 
  photoMarkTool.load({
@@ -68,6 +68,6 @@ The best watermarking tool-最好用的水印工具 ，支持 1.定时器调用�
  
  photoMarkTool.removeAll();//可以影响到所有的实例化对象
 
- 
+ ```
  
  
