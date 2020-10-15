@@ -61,6 +61,25 @@
 }(this, function () {
     "use strict";
     /*Just return a value to define the module export.*/
+    /**拓展startsWidth 兼容IE**/
+    if(typeof String.startsWidth!= 'function'){
+        String.prototype.startsWith=function(str){
+            if(str==null||str==""||this.length==0||str.length>this.length)
+                return false;
+            if(this.substr(0,str.length)==str)
+                return true;
+            else
+                return false;
+            return true;
+        }
+    }
+    /**拓展Array.from 兼容IE**/
+    if(!Array.from){
+        Array.from = function(iterable){
+            // IE(包括IE11)没有这个方法,用[].slice.call(new Uint8Array..代替
+            return [].slice.call(new Uint8Array(iterable));
+        }
+    }
     var registerListenEvent =null ;//事件监听函数i，因为匿名函数无法移除，必须要有名函数
     var tempSetting = null;//如果没有此临时存储，移除监听时将找不到是同一个函数
     var currentThat =null;//记录当前实例化的new PhotoMarkTool() 对象
